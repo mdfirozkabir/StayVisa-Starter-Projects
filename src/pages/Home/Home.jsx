@@ -1,9 +1,11 @@
+import Rooms from "../../components/Rooms/Rooms"
+
 const Home = () => {
   return (
     <div>
-      <h1>Welcome to StayVista</h1>
       {/* Categories section */}
       {/* Rooms sections */}
+      <Rooms/>
     </div>
   )
 }
