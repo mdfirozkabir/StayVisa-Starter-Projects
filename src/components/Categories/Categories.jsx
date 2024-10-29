@@ -1,13 +1,12 @@
 import { useSearchParams } from "react-router-dom";
-import Container from "../../Shared/Container";
 import { categories } from "./CategoriesData";
 import CategoryBox from "./CategoryBox";
+import Container from "../Shared/Container";
 
 
 const Categories = () => {
     const [params, setParams] = useSearchParams()
     const category = params.get('category')
-    console.log(category)
 
     return (
         <Container>

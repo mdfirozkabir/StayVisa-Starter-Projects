@@ -1,11 +1,12 @@
-import Categories from "../../components/Rooms/Categories/Categories"
+import { Helmet } from "react-helmet-async"
+import Categories from "../../components/Categories/Categories"
 import Rooms from "../../components/Rooms/Rooms"
-import { useSearchParams } from "react-router-dom";
 
 const Home = () => {
 
   return (
     <div>
+      <Helmet><title>StayVista | Vacation Homes & Condo Rentals</title></Helmet>
       {/* Categories section */}
       <Categories />
       {/* Rooms sections */}

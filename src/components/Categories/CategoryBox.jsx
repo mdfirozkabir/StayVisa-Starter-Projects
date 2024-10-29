@@ -5,7 +5,6 @@ import qs from "query-string";
 
 
 const CategoryBox = ({ label, icon: Icon, selected }) => {
-    console.log(selected)
     const [params, setParams] = useSearchParams()
     const navigate = useNavigate()
     const handleClick = () => {
@@ -26,7 +25,7 @@ const CategoryBox = ({ label, icon: Icon, selected }) => {
     }
     params.get('category')
     return (
-        <div onClick={handleClick} className={`flex flex-col items-center justify-center gap-2 p-3 border-b-2 hover:text-neutral-800 transition cursor-pointer ${selected ? 'border-b-neutral-800 text-neutral-800' : 'border-transparent text-neutral-500'}`}>
+        <div onClick={handleClick} className={`flex flex-col items-center justify-center gap-2 p-3 border-b-2 hover:text-neutral-800 transition cursor-pointer ${selected ? 'border-b-neutral-800 text-neutral-800' : 'border-transparent'}`}>
             <Icon size={26} />
             <div className="text-sm font-medium">{label}</div>
         </div>
