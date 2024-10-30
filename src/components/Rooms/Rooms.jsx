@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Card from "./Cards";
 import Container from "../Shared/Container";
 import { useSearchParams } from "react-router-dom";
-import Heading from "../Shared/Navbar/Heading";
+import Heading from "../Shared/Heading";
 import Loader from "../Shared/Loader";
 
 
