@@ -1,22 +1,25 @@
 /* eslint-disable react/prop-types */
 
+
 import Calender from "./Calender";
 import Button from "../Button/Button";
-// import { formatDistance } from "date-fns";
+import { formatDistance, parseISO } from "date-fns"
+// 
 
 const RoomReservation = ({ room }) => {
-    
-    const toDate = room.to
-    const fromDate = room.from
-    console.log(toDate);
-    console.log(fromDate);
-    // const parseDate = parseInt(toDate, 'yyyy-MM-dd', new Date());
-    // console.log(parseDate);
-    // const totalDays = formatDistance(new Date('fromDate'), new Date('toDate'));
-    // console.log(totalDays);
 
+    const toDate = parseISO(room.to);
+    const fromDate = parseISO(room.from);
+    const price = room.price
+    let totalPrice
+    if (isNaN(toDate) || isNaN(fromDate)) { }
+    else {
+        const totalDays = parseInt(formatDistance(toDate, fromDate).split(' ')[0])
+        totalPrice = totalDays * price
+
+    }
+    // video player here if needed 23:35 minutes
     return (
-
         <div className="rounded-xl border-[1px] border-neutral-200 overflow-hidden bg-white">
             <div className="flex items-center gap-1 p-4">
                 <div className="text-2xl font-semibold">$ {room?.price}</div>
@@ -33,7 +36,7 @@ const RoomReservation = ({ room }) => {
             <hr />
             <div className="p-4 flex items-center justify-between font-semibold text-lg">
                 <div className="">Total</div>
-                <div className="">$ {room?.price}</div>
+                <div className="">$ {totalPrice}</div>
 
             </div>
             <div>
