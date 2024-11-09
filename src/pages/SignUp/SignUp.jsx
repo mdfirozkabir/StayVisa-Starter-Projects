@@ -1,7 +1,37 @@
 import { Link } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
+import { imageUpload } from '../../api/utils'
+import useAuth from '../../hooks/useAuth'
 
 const SignUp = () => {
+  const { createUser, updateUserProfile, signinWithGoogle } = useAuth()
+  //form submit handler
+  const handleSubmit = async event => {
+    event.preventDefault()
+
+    const formData = new FormData(event.target)
+    const name = formData.get('name')
+    const email = formData.get('email')
+    const password = formData.get('password')
+    const image = formData.get('image')
+
+
+    //1 upload image if provided
+    const imageData = await imageUpload(image)
+    //2 create user and update user profile with name and image url
+    const result = await createUser(email, password)
+    
+    //3 update user profile
+    await updateUserProfile(name, imageData?.data?.display_url)
+    //result.user.email
+    //result.user.displayName
+    //result.user.photoURL
+    //4 save user data in database
+
+    //6 get token
+
+  }
+
   return (
     <div className='flex justify-center items-center min-h-screen'>
       <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900'>
@@ -10,6 +40,7 @@ const SignUp = () => {
           <p className='text-sm text-gray-400'>Welcome to StayVista</p>
         </div>
         <form
+          onSubmit={handleSubmit}
           noValidate=''
           action=''
           className='space-y-6 ng-untouched ng-pristine ng-valid'

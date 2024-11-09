@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 
-
 import Calender from "./Calender";
 import Button from "../Button/Button";
 import { formatDistance, parseISO } from "date-fns"
-// 
+import { useState } from "react";
+
 
 const RoomReservation = ({ room }) => {
 
@@ -18,7 +18,12 @@ const RoomReservation = ({ room }) => {
         totalPrice = totalDays * price
 
     }
-    // video player here if needed 23:35 minutes
+    const { value, setValue } = useState({
+        startDate: fromDate,
+        endDate: toDate,
+        key: 'selection',
+    })
+
     return (
         <div className="rounded-xl border-[1px] border-neutral-200 overflow-hidden bg-white">
             <div className="flex items-center gap-1 p-4">
@@ -27,7 +32,7 @@ const RoomReservation = ({ room }) => {
             </div>
             <hr />
             <div className="flex justify-center">
-                <Calender />
+                <Calender value={value} />
             </div>
             <hr />
             <div className="p-4">
