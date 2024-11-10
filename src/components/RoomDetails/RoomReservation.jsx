@@ -18,11 +18,12 @@ const RoomReservation = ({ room }) => {
         totalPrice = totalDays * price
 
     }
-    const { value, setValue } = useState({
-        startDate: fromDate,
-        endDate: toDate,
-        key: 'selection',
-    })
+
+    const [value, setValue] = useState({
+        startDate: room?.from ? new Date(room.from) : new Date(),
+        endDate: room?.to ? new Date(room.to) : new Date(),
+        key: 'selection'
+    });
 
     return (
         <div className="rounded-xl border-[1px] border-neutral-200 overflow-hidden bg-white">
