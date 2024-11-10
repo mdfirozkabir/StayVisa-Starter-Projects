@@ -1,7 +1,62 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
+import useAuth from '../../hooks/useAuth'
 
 const Login = () => {
+
+  const { createUser, updateUserProfile, signInWithGoogle, loading } = useAuth()
+  const navigate = useNavigate()
+  //form submit handler
+  const handleSubmit = async event => {
+    event.preventDefault()
+
+    const formData = new FormData(event.target)
+    const email = formData.get('email')
+    const password = formData.get('password')
+
+    try {
+      //2 create user and update user profile with name and image url
+      const result = await createUser(email, password)
+
+      //3 update user profile
+      await updateUserProfile(name, imageData?.data?.display_url)
+      //result.user.email
+      //4 save user data in database
+      const dbResponse = await saveUser(result?.user)
+      console.log(dbResponse)
+
+      //6 get token
+      await getToken(result?.user?.email)
+
+      toast.success("signup successful")
+      navigate('/')
+    } catch (error) {
+      toast.error(error.message)
+    }
+
+  }
+
+  // google signin profile
+  const handleGoogleSignIn = async () => {
+    try {
+      //1 user registration using google signIn profile
+      const result = await signInWithGoogle()
+
+      //4 save user data in database
+      const dbResponse = await saveUser(result?.user)
+      console.log(dbResponse)
+
+      //6 get token
+      await getToken(result?.user?.email)
+
+      toast.success("signup successful")
+      navigate('/')
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
+
+
   return (
     <div className='flex justify-center items-center min-h-screen'>
       <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900'>
