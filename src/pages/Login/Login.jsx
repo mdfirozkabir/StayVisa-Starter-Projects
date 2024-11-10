@@ -1,10 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
 import useAuth from '../../hooks/useAuth'
+import { getToken, saveUser } from '../../api/auth'
+import toast from 'react-hot-toast'
+import { TbFidgetSpinner } from 'react-icons/tb'
 
 const Login = () => {
 
-  const { createUser, updateUserProfile, signInWithGoogle, loading } = useAuth()
+  const { signIn, signInWithGoogle, loading } = useAuth()
   const navigate = useNavigate()
   //form submit handler
   const handleSubmit = async event => {
@@ -15,20 +18,12 @@ const Login = () => {
     const password = formData.get('password')
 
     try {
-      //2 create user and update user profile with name and image url
-      const result = await createUser(email, password)
-
-      //3 update user profile
-      await updateUserProfile(name, imageData?.data?.display_url)
-      //result.user.email
-      //4 save user data in database
-      const dbResponse = await saveUser(result?.user)
-      console.log(dbResponse)
-
-      //6 get token
+      //1 user login
+      const result = await signIn(email, password)
+      //2 get token
       await getToken(result?.user?.email)
 
-      toast.success("signup successful")
+      toast.success("Login successful")
       navigate('/')
     } catch (error) {
       toast.error(error.message)
@@ -36,7 +31,7 @@ const Login = () => {
 
   }
 
-  // google signin profile
+  // google login profile
   const handleGoogleSignIn = async () => {
     try {
       //1 user registration using google signIn profile
@@ -49,7 +44,7 @@ const Login = () => {
       //6 get token
       await getToken(result?.user?.email)
 
-      toast.success("signup successful")
+      toast.success("Login successful")
       navigate('/')
     } catch (error) {
       toast.error(error.message)
@@ -66,7 +61,7 @@ const Login = () => {
             Sign in to access your account
           </p>
         </div>
-        <form
+        <form onSubmit={handleSubmit}
           noValidate=''
           action=''
           className='space-y-6 ng-untouched ng-pristine ng-valid'
@@ -109,7 +104,8 @@ const Login = () => {
               type='submit'
               className='bg-rose-500 w-full rounded-md py-3 text-white'
             >
-              Continue
+              {loading ? <TbFidgetSpinner className='animate-spin m-auto' /> : (
+                'Continue')}
             </button>
           </div>
         </form>
@@ -125,7 +121,7 @@ const Login = () => {
           </p>
           <div className='flex-1 h-px sm:w-16 dark:bg-gray-700'></div>
         </div>
-        <div className='flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer'>
+        <div onClick={handleGoogleSignIn} className='flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer'>
           <FcGoogle size={32} />
 
           <p>Continue with Google</p>
