@@ -1,9 +1,15 @@
 import { Helmet } from "react-helmet-async";
 import AddRoomForm from "../../../components/Form/AddRoomForm";
 import { useState } from "react";
+import { imageUpload } from "../../../api/utils";
+import { AuthContext } from "../../../providers/AuthProvider";
+import useAuth from "../../../hooks/useAuth";
 
 
 const AddRoom = () => {
+    const { user } = useAuth()
+    const [loading, setLoading] = useState(false)
+    const [uploadButtonText, setUploadButtonText] = useState('Upload Image')
     const [dates, setDates] = useState({
         startDate: new Date(),
         endDate: new Date(),
@@ -25,11 +31,37 @@ const AddRoom = () => {
         const description = form.description.value
         const bedrooms = form.bedrooms.value
         const image = form.image.files[0]
+        const host = {
+            name: user?.displayName,
+            image: user?.photoURL,
+            email: user?.email,
+        }
+        const image_url = await imageUpload(image)
+        const roomData = {
+            location,
+            category,
+            title,
+            from,
+            to,
+            price,
+            guest,
+            bathrooms,
+            description,
+            bedrooms,
+            image: image_url?.data?.display_url,
+            host,
+        }
+        console.table(roomData)
     }
 
     // Handle date change from react-date-range calender
     const handleDates = ranges => {
         setDates(ranges.selection)
+    }
+
+    // Handle image button change
+    const handleImageChange = image => {
+        setUploadButtonText(image.name)
     }
 
     return (
@@ -39,7 +71,15 @@ const AddRoom = () => {
             </Helmet>
 
             {/* from */}
-            <AddRoomForm handleSubmit={handleSubmit} handleDates={handleDates} dates={dates} /></div>
+            <AddRoomForm
+                handleSubmit={handleSubmit}
+                handleDates={handleDates}
+                dates={dates}
+                handleImageChange={handleImageChange}
+                loading={loading}
+                uploadButtonText={uploadButtonText}
+            />
+        </div>
     );
 };
 

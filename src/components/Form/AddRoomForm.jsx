@@ -50,7 +50,12 @@ const AddRoomForm = ({
                             <label htmlFor='location' className='block text-gray-600'>
                                 Select Availability Range
                             </label>
-                            <DateRange rangeColors={['#F43F5E']} />
+                            <DateRange
+                                rangeColors={['#F43F5E']}
+                                ranges={[dates]}
+                                onChange={handleDates}
+                                minDate={new Date()}
+                                />
                         </div>
                     </div>
                     <div className='space-y-6'>
@@ -81,7 +86,7 @@ const AddRoomForm = ({
                                             hidden
                                         />
                                         <div className='bg-rose-500 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-rose-500'>
-                                            Upload Image
+                                            {uploadButtonText}
                                         </div>
                                     </label>
                                 </div>

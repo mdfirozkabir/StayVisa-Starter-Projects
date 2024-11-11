@@ -61,16 +61,17 @@ const Sidebar = () => {
                                 label='Statistics'
                                 address='/dashboard'
                             />
+                            {/* Add Room */}
+                            <MenuItem
+                                icon={MdHomeWork}
+                                label='Add Room'
+                                address='add-room'
+                            />
                             {/* Menu Items */}
                             <MenuItem
                                 icon={BsFillHouseAddFill}
                                 label='My Listings'
                                 address='my-listings'
-                            />
-                            <MenuItem
-                                icon={MdHomeWork}
-                                label='Add Room'
-                                address='add-room'
                             />
                         </nav>
                     </div>
