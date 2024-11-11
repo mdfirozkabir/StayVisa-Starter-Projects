@@ -55,7 +55,7 @@ const AddRoomForm = ({
                                 ranges={[dates]}
                                 onChange={handleDates}
                                 minDate={new Date()}
-                                />
+                            />
                         </div>
                     </div>
                     <div className='space-y-6'>
@@ -78,6 +78,7 @@ const AddRoomForm = ({
                                 <div className='flex flex-col w-max mx-auto text-center'>
                                     <label>
                                         <input
+                                            onChange={e => handleImageChange(e.target.files[0])}
                                             className='text-sm cursor-pointer w-36 hidden'
                                             type='file'
                                             name='image'

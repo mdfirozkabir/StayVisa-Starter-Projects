@@ -2,7 +2,6 @@ import { Helmet } from "react-helmet-async";
 import AddRoomForm from "../../../components/Form/AddRoomForm";
 import { useState } from "react";
 import { imageUpload } from "../../../api/utils";
-import { AuthContext } from "../../../providers/AuthProvider";
 import useAuth from "../../../hooks/useAuth";
 
 
