@@ -22,8 +22,6 @@ const Sidebar = () => {
 
     //get role from server
     const [role] = useRole()
-
-    console.log(toggle)
     //   For guest/host menu item toggle button
     const toggleHandler = event => {
         setToggle(event.target.checked)
