@@ -7,6 +7,7 @@ import RoomReservation from "../../components/RoomDetails/RoomReservation";
 
 
 const RoomDetails = () => {
+
     const room = useLoaderData()
 
     return (
