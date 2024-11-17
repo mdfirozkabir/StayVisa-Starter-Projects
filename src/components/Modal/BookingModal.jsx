@@ -1,6 +1,8 @@
 import { Dialog, Transition } from '@headlessui/react'
+import { Elements } from '@stripe/react-stripe-js'
 import { format } from 'date-fns'
 import { Fragment } from 'react'
+import CheckoutForm from '../Form/CheckoutForm'
 
 const BookingModal = ({ closeModal, isOpen, bookingInfo }) => {
     return (
@@ -65,6 +67,10 @@ const BookingModal = ({ closeModal, isOpen, bookingInfo }) => {
                                 </div>
                                 <hr className='mt-8 ' />
                                 {/* Card data form */}
+                                {/* checkout form */}
+                                <Elements>
+                                    <CheckoutForm />
+                                </Elements>
                             </Dialog.Panel>
                         </Transition.Child>
                     </div>
